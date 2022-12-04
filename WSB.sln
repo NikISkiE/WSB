@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FnafFanSpin", "FnafFanSpin\FnafFanSpin.csproj", "{3CB9D289-A25F-4FCE-92FC-0FA2DDB40035}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FnafFanSpin", "FnafFanSpin\FnafFanSpin.csproj", "{3CB9D289-A25F-4FCE-92FC-0FA2DDB40035}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiczbyPierwsze", "LiczbyPierwsze\LiczbyPierwsze\LiczbyPierwsze.csproj", "{257CB542-A476-442C-8816-45E4BA868621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3CB9D289-A25F-4FCE-92FC-0FA2DDB40035}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CB9D289-A25F-4FCE-92FC-0FA2DDB40035}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CB9D289-A25F-4FCE-92FC-0FA2DDB40035}.Release|Any CPU.Build.0 = Release|Any CPU
+		{257CB542-A476-442C-8816-45E4BA868621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{257CB542-A476-442C-8816-45E4BA868621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{257CB542-A476-442C-8816-45E4BA868621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{257CB542-A476-442C-8816-45E4BA868621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
