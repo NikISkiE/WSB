@@ -31,6 +31,7 @@ namespace LiczbyPierwsze
             {
                 Console.WriteLine($"Liczba {a} nie jest liczbą pierwszą");
             }
+            Console.WriteLine("\nKliknij 'enter' a by wybrać nową liczbe.... ");
             Console.ReadKey();
             Main(args);
 
