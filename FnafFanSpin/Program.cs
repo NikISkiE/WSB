@@ -13,18 +13,6 @@ namespace FnafFanSpin
     {
         internal char[,] table;
 
-        internal void BaseTable()
-        {
-            table = new char[6, 6] {
-                { '%','%','%','#','#','#'},
-                { '%','%','%','#','#','#'},
-                { '%','%','%','#','#','#'},
-                { '*','*','*','+','+','+'},
-                { '*','*','*','+','+','+'},
-                { '*','*','*','+','+','+'},
-            };
-        }
-
         internal void Spin(int degree)
         {
             for (int i = 0; i < degree; i++)
@@ -74,6 +62,7 @@ namespace FnafFanSpin
                 }
                 Console.Write("\n");
             }
+
             Choice();
         }
 
@@ -90,6 +79,7 @@ namespace FnafFanSpin
 
             if (possibldegree.Contains(userselection))
             {
+                Console.Clear();
                 Spin(int.Parse(userselection));
             }
             else if (userselection == "4")
@@ -106,7 +96,15 @@ namespace FnafFanSpin
         static void Main()
         {
             Program p = new Program();
-            p.BaseTable();
+            Console.Clear();
+            p.table = new char[6, 6] {
+                { '%','%','%','#','#','#'},
+                { '%','%','%','#','#','#'},
+                { '%','%','%','#','#','#'},
+                { '*','*','*','+','+','+'},
+                { '*','*','*','+','+','+'},
+                { '*','*','*','+','+','+'},
+            };
             for (int i = 0; i < 6; i++)
             {
                 for (int j = 0; j < 6; j++)
