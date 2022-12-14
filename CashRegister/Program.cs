@@ -22,14 +22,14 @@ namespace CashRegister
 
 
     }
-    class Item
+    struct Item
     {
 
         public string name { get; set; }
 
-        public string priceperitem { get; set; }
+        public decimal priceperitem { get; set; }
 
-        public string priceperkg { get; set; }
+        public decimal priceperkg { get; set; }
 
     }
     internal class Program
@@ -41,11 +41,11 @@ namespace CashRegister
         }
         static readonly List<Item> itemslist = new List<Item>
             {
-            new Item { name = "Potato", priceperitem = "-", priceperkg = "1,30" },
-            new Item { name = "Coca Cola 1.5l",priceperitem="6,00",priceperkg="-"},
-            new Item { name = "Lays 350g",priceperitem="4,45",priceperkg="-"},
-            new Item { name = "Chicken Breast",priceperitem="-",priceperkg="3,79"},
-            new Item { name = "Milk 1l",priceperitem="2,49",priceperkg="-"}
+            new Item { name = "Potato", priceperitem =1.50m, priceperkg = 1.30m },
+            new Item { name = "Coca Cola 1.5l",priceperitem=6.00m,priceperkg=2.00m},
+            new Item { name = "Lays 350g",priceperitem=4.45m,priceperkg=12.99m},
+            new Item { name = "Chicken Breast",priceperitem=14.49m,priceperkg=3.79m},
+            new Item { name = "Milk 1l",priceperitem=2.49m,priceperkg=2.49m}
             };
         static internal List<Invoice> invoicelist = new List<Invoice>();
 
@@ -76,53 +76,65 @@ namespace CashRegister
                 Console.ReadKey();
                 ItemSelection();
             }
-            HowMuch(a - 1);
+            PricePerWhat(itemslist[a-1]);
 
 
         }
-        static decimal PricePer(int item)
+        static void PricePerWhat(Item item)
         {
-            decimal a;
-            if (itemslist[item].priceperitem == "-")
+            Refresh();
+            Console.WriteLine($"1.Cena za kilogram\n2.Cena za sztuke");
+            if (!int.TryParse(Console.ReadLine(), out int selection))
             {
-                a = decimal.Parse(itemslist[item].priceperkg);
-                return a;
+                Console.WriteLine("Podaj Liczbe nie litere!!! \nWciśnij przycisk by wrócić do wyboru");
+                Console.ReadKey();
+                PricePerWhat(item);
             }
-            a = decimal.Parse(itemslist[item].priceperitem);
-            return a;
+
+            switch (selection)
+            {
+                case 1:
+                    HowMuch(item, item.priceperkg);
+                    break;
+                case 2:
+                    HowMuch(item,item.priceperitem);
+                    break;
+                default:
+                    Console.WriteLine("Podaj Liczbe z zakresu 1-2\nWciśnij przycisk by wrócić do wyboru");
+                    Console.ReadKey();
+                    PricePerWhat(item);
+                    break;              
+            
+            }
         }
             
-        static void HowMuch(int item)
+        static void HowMuch(Item item, decimal price)
         {
             Refresh();            
-            Console.WriteLine($"Podaj ilość {itemslist[item].name}");
+            Console.WriteLine($"Podaj ilość {item.name}");
 
             if (!decimal.TryParse(Console.ReadLine(), out decimal a))
             {
                 Refresh();
                 Console.WriteLine("Podaj Liczbe nie litere!!! \nWciśnij przycisk by wrócić do wyboru");
                 Console.ReadKey();
-                HowMuch(item);
+                HowMuch(item, price);
             }
-            if (itemslist[item].priceperkg == "-")
+            if (item.priceperkg == price)
             {
                 if((a % 1)!=0)
                 {
                     Console.WriteLine("Nie można wziąć nie pełniej sztuki\nWciśnij przycisk by wrócić do wyboru");
                     Console.ReadKey();
-                    HowMuch(item);
+                    HowMuch(item, price);
                 }
             }
-            decimal price = PricePer(item);
             a = Decimal.Round(a, 2);
             decimal sum = price * a;
             sum = Decimal.Round(sum, 2);
 
-            invoicelist.Add(new Invoice { name = itemslist[item].name, amount = a, priceper = price, sum = sum });
+            invoicelist.Add(new Invoice { name = item.name, amount = a, priceper = price, sum = sum });
             IFMore();
-
-
-
 
         }
 
@@ -159,9 +171,21 @@ namespace CashRegister
             }
             finalsum = Decimal.Round(finalsum, 2);
             Console.WriteLine($"Suma  PLN............{finalsum}");
-            Console.WriteLine($"Wciśnij przycisk by wrócić do ekranu startowego");
-            Console.ReadKey();
-            Main();
+            Console.WriteLine($"Wciśnij (ENTER) by rozpocząć nowe zamówienie\nWciśnij (ESC) by wyjść z programu");
+            var option = Console.ReadKey();
+            switch (option.Key)
+            {
+                case ConsoleKey.Escape:
+                    Environment.Exit(0);
+                    break;
+                case ConsoleKey.Enter:
+                    ItemSelection();
+                    break;
+                default:
+                    ShowInvoice();
+                    break;
+            }
+            ItemSelection();
 
         }
 
