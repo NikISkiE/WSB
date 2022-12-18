@@ -42,10 +42,10 @@ namespace CashRegister
         static readonly List<Item> itemslist = new List<Item>
             {
             new Item { name = "Potato", priceperitem =1.50m, priceperkg = 1.30m },
-            new Item { name = "Coca Cola 1.5l",priceperitem=6.00m,priceperkg=2.00m},
-            new Item { name = "Lays 350g",priceperitem=4.45m,priceperkg=12.99m},
+            new Item { name = "Coca Cola",priceperitem=6.00m,priceperkg=2.00m},
+            new Item { name = "Lays",priceperitem=4.45m,priceperkg=12.99m},
             new Item { name = "Chicken Breast",priceperitem=14.49m,priceperkg=3.79m},
-            new Item { name = "Milk 1l",priceperitem=2.49m,priceperkg=2.49m}
+            new Item { name = "Milk",priceperitem=2.49m,priceperkg=2.49m}
             };
         static internal List<Invoice> invoicelist = new List<Invoice>();
 
@@ -94,10 +94,10 @@ namespace CashRegister
             switch (selection)
             {
                 case 1:
-                    HowMuch(item, item.priceperkg);
+                    HowMuch(item, item.priceperkg , "kg");
                     break;
                 case 2:
-                    HowMuch(item,item.priceperitem);
+                    HowMuch(item,item.priceperitem ,"szt");
                     break;
                 default:
                     Console.WriteLine("Podaj Liczbe z zakresu 1-2\nWciśnij przycisk by wrócić do wyboru");
@@ -107,35 +107,58 @@ namespace CashRegister
             
             }
         }
-            
-        static void HowMuch(Item item, decimal price)
+
+        static void HowMuch(Item item, decimal price , string ofwhat)
         {
-            Refresh();            
-            Console.WriteLine($"Podaj ilość {item.name}");
+            Refresh();
+            Console.WriteLine($"Podaj ilość {ofwhat} {item.name}");
 
             if (!decimal.TryParse(Console.ReadLine(), out decimal a))
             {
                 Refresh();
                 Console.WriteLine("Podaj Liczbe nie litere!!! \nWciśnij przycisk by wrócić do wyboru");
                 Console.ReadKey();
-                HowMuch(item, price);
+                HowMuch(item, price, ofwhat);
             }
             if (item.priceperkg == price)
             {
-                if((a % 1)!=0)
+                if ((a % 1) != 0)
                 {
                     Console.WriteLine("Nie można wziąć nie pełniej sztuki\nWciśnij przycisk by wrócić do wyboru");
                     Console.ReadKey();
-                    HowMuch(item, price);
+                    HowMuch(item, price, ofwhat);
                 }
             }
             a = Decimal.Round(a, 2);
             decimal sum = price * a;
             sum = Decimal.Round(sum, 2);
+            int index = Exists(item.name,price);
+            if (index <= invoicelist.Count)
+            {
+                invoicelist[index].amount = invoicelist[index].amount + a;
+                invoicelist[index].sum = invoicelist[index].sum + sum;
 
-            invoicelist.Add(new Invoice { name = item.name, amount = a, priceper = price, sum = sum });
+            }
+            else
+            {
+                invoicelist.Add(new Invoice { name = item.name+" "+ofwhat, amount = a, priceper = price, sum = sum });
+            }
+            
             IFMore();
 
+        }
+        static int Exists(string itemname, decimal price)
+        {
+            int i =0;
+            foreach(var item in invoicelist)
+            {
+                if(itemname == item.name && price == item.priceper)
+                {
+                    return i;
+                }
+                ++i;
+            }
+            return (invoicelist.Count + 1);
         }
 
         static void IFMore()
@@ -165,8 +188,7 @@ namespace CashRegister
             decimal finalsum = 0;
             foreach(var item in invoicelist)
             {
-                ++i;
-                Console.WriteLine($"{i}. {item.name} {item.amount} X {item.priceper}.........{item.sum}");
+                Console.WriteLine($"{item.name} {item.amount} X {item.priceper}.........{item.sum}");
                 finalsum = finalsum + item.sum;
             }
             finalsum = Decimal.Round(finalsum, 2);
@@ -179,6 +201,7 @@ namespace CashRegister
                     Environment.Exit(0);
                     break;
                 case ConsoleKey.Enter:
+                    invoicelist.Clear();
                     ItemSelection();
                     break;
                 default:
