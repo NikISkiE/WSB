@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace PhoneBook
 {
@@ -67,9 +68,11 @@ namespace PhoneBook
         static void SearchNamePBook()
         {
             Refresh();            
-            Console.WriteLine("Podaj Nazwisko i Imię szukanej osoby");
+            Console.WriteLine("Podaj Nazwisko i Imię szukanej osoby");           
             string person = Console.ReadLine();
-            string[] elements = person.Split(' ');
+            person = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(person.ToLower());
+            string[] elements = person.Split(' ');;
+
             if (elements.Count() == 2)
             {
                 if (PhoneBook.ContainsValue(elements[1] + " " + elements[0]) || PhoneBook.ContainsValue(person))
@@ -108,10 +111,10 @@ namespace PhoneBook
                         {
                             Console.WriteLine("Numer Telefonu = {0} | Imię i Nazwisko = {1}", number, PhoneBook[number]);
                         }
-                }else
-                {
-                    Console.WriteLine("Podana Osoba nie znajduję sie w naszej bazie danych lub podano złą wartość");
-                }
+                    }else
+                    {
+                        Console.WriteLine("Podana Osoba nie znajduję sie w naszej bazie danych lub podano złą wartość");
+                    }
             }else
             {
                 Console.WriteLine("Podana Osoba nie znajduję sie w naszej bazie danych lub podano złą wartość");
@@ -140,6 +143,7 @@ namespace PhoneBook
             Refresh();
             Console.WriteLine("Podaj Imie i Nazwisko dodawanej osoby");
             string person = Console.ReadLine();
+            person = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(person.ToLower());
             string[] nameandsurname = person.Split(" ");
             Console.WriteLine("Podaj Numer dodawanej osoby");
             string number = Console.ReadLine();
