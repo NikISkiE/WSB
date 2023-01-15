@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiczbyPierwsze", "LiczbyPie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister", "CashRegister\CashRegister.csproj", "{1BCAA2B5-C0D7-4F0D-9B69-BCA566C80CD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileReading", "FileReading\FileReading.csproj", "{72D6582E-4B42-47EA-9B39-BF1AECC6B3A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileReading", "FileReading\FileReading.csproj", "{72D6582E-4B42-47EA-9B39-BF1AECC6B3A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook", "PhoneBook\PhoneBook.csproj", "{A0E73821-9E7C-485A-894A-7E3343059911}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{72D6582E-4B42-47EA-9B39-BF1AECC6B3A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72D6582E-4B42-47EA-9B39-BF1AECC6B3A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72D6582E-4B42-47EA-9B39-BF1AECC6B3A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E73821-9E7C-485A-894A-7E3343059911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E73821-9E7C-485A-894A-7E3343059911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E73821-9E7C-485A-894A-7E3343059911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E73821-9E7C-485A-894A-7E3343059911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
